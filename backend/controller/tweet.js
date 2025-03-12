@@ -1,5 +1,6 @@
 // MVC 중 C(Controller) Business logic을 담당.
 
+import { getSocketIO } from "../connection/socket.js";
 import * as tweetRepository from "../data/tweet.js";
 
 export async function getTweets(req, res) {
@@ -24,6 +25,7 @@ export async function createTweet(req, res) {
   const { text } = req.body;
   const tweet = await tweetRepository.create(text, req.userId);
   res.status(201).json(tweet);
+  getSocketIO().emit("tweets", tweet);
 }
 
 export async function updateTweet(req, res) {

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Socket from "./network/socket";
 import "./index.css";
 import App from "./App";
 import AuthService from "./service/auth";
@@ -15,7 +16,8 @@ const tokenStorage = new TokenStorage();
 const authErrorEventBus = new AuthErrorEventBus();
 const httpClient = new HttpClient(baseURL, authErrorEventBus);
 const authService = new AuthService(httpClient, tokenStorage);
-const tweetService = new TweetService(httpClient, tokenStorage);
+const socketClinet = new Socket(baseURL, () => tokenStorage.getToken());
+const tweetService = new TweetService(httpClient, tokenStorage, socketClinet);
 
 ReactDOM.render(
   <React.StrictMode>
