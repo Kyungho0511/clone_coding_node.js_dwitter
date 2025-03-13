@@ -30,7 +30,7 @@ app.use((error, req, res, next) => {
 });
 
 // Connect to DB
-// db.getConnection().then((connection) => console.log(connection));
+db.getConnection().then((connection) => console.log(connection));
 
 // Start server
 const server = app.listen(config.host.port);
